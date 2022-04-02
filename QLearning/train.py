@@ -26,6 +26,7 @@ def train(cfg,env,agent):
 def test(cfg,env,agent):
     print('开始测试！')
     print(f'环境：{cfg.env_name}, 算法：{cfg.algo_name}, 设备：{cfg.device}')
+
     for item in agent.Q_table.items():
         print(item)
     rewards = []  # 记录所有回合的奖励

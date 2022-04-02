@@ -29,6 +29,7 @@ curr_time = datetime.datetime.now().strftime("%Y%m%d-%H%M%S") # 获取当前时�
 algo_name = 'Q-learning'  # 算法名称
 env_name = 'CliffWalking-v0'  # 环境名称
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu") # 检测GPU
+
 class QlearningConfig:
     '''训练相关参数'''
     def __init__(self):
@@ -80,6 +81,9 @@ env, agent = env_agent_config(cfg, seed=1)
 rewards, ma_rewards = train(cfg, env, agent)
 make_dir(plot_cfg.result_path, plot_cfg.model_path)  # 创建保存结果和模型路径的文件夹
 agent.save(path=plot_cfg.model_path)  # 保存模型
+
+print('hoho, Q table: ', agent.Q_table)
+
 save_results(rewards, ma_rewards, tag='train',
             path=plot_cfg.result_path)  # 保存结果
 plot_rewards(rewards, ma_rewards, plot_cfg, tag="train")  # 画出结果
