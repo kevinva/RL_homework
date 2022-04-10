@@ -29,7 +29,9 @@ class PolicyGradient:
         state = Variable(state)
         probs = self.policy_net(state)
         m = Bernoulli(probs) # 伯努利分布
+        print('m: ', m)
         action = m.sample()
+        print('action: ', action)
         action = action.data.numpy().astype(int)[0] # 转为标量
         return action
         

@@ -127,7 +127,7 @@ class DoubleDQN:
         # 计算当前(s_t,a)对应的Q(s_t, a)
         q_values = self.policy_net(state_batch) 
         next_q_values = self.policy_net(next_state_batch)
-        # 代入当前选择的action，得到Q(s_t|a=a_t)
+        # 代入当前选择的action，得到Q(s_t|a=a_t)0
         q_value = q_values.gather(dim=1, index=action_batch)
         '''以下是Nature DQN的q_target计算方式
         # 计算所有next states的Q'(s_{t+1})的最大值，Q'为目标网络的q函数
@@ -142,6 +142,13 @@ class DoubleDQN:
             next_state_batch)
         # 选出Q(s_t‘, a)对应的action，代入到next_target_values获得target net对应的next_q_value，即Q’(s_t|a=argmax Q(s_t‘, a))
         next_target_q_value = next_target_values.gather(1, torch.max(next_q_values, 1)[1].unsqueeze(1)).squeeze(1)
+
+        print('next_q_values:', next_q_values)
+        print('torch.max(next_q_values, 1)[1]: ', torch.max(next_q_values, 1)[1])
+        print('torch.max(next_q_values, 1)[1].unsqueeze(1): ', torch.max(next_q_values, 1)[1].unsqueeze(1))
+        print('next_target_values.gather(1, torch.max(next_q_values, 1)[1].unsqueeze(1)): ', next_target_values.gather(1, torch.max(next_q_values, 1)[1].unsqueeze(1)))
+        print('final next_target_q_value: ', next_target_q_value)
+
         q_target = reward_batch + self.gamma * next_target_q_value * (1-done_batch)
         self.loss = nn.MSELoss()(q_value, q_target.unsqueeze(1))  # 计算 均方误差loss
         # 优化模型
