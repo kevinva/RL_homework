@@ -84,6 +84,7 @@ class PPO:
                 self.actor_optimizer.step()
                 self.critic_optimizer.step()
         self.memory.clear()  
+        
     def save(self,path):
         actor_checkpoint = os.path.join(path, 'ppo_actor.pt')
         critic_checkpoint= os.path.join(path, 'ppo_critic.pt')
