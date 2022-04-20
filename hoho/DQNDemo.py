@@ -88,9 +88,12 @@ class DQN:
         next_state_batch = torch.tensor(next_state_batch, device=self.device, dtype=torch.float)
         done_batch = torch.tensor(np.float32(done_batch), device=self.device)
         q_values_temp = self.policy_net(state_batch)   # 神经网络输出的是每个动作对应的价值
-        q_values = q_values_temp.gather(dim=1, index=action_batch) # 计算当前状态(s_t,a)对应的Q(s_t, a)，即选择实际发生动作对应的价值
+        q_values = q_values_temp.gather(dim=1, index=action_batch) 
+        # 预测（估计）当前状态(s_t,a)对应的Q(s_t, a)，即选择实际发生动作对应的价值
+        
         next_q_values_temp = self.target_net(next_state_batch)
-        next_q_values = next_q_values_temp.max(1)[0].detach() # 计算下一时刻的状态(s_t_,a)对应的Q值
+        next_q_values = next_q_values_temp.max(1)[0].detach() 
+        # 计算下一时刻的状态(s_t_,a)对应的Q值
         
         # print('q_values_temp:', q_values_temp)
         # print('q_values_:', q_values)
