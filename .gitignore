@@ -16,3 +16,7 @@ hoho/.ipynb_checkpoints/A2CDemo-checkpoint.ipynb
 common/__pycache__/multiprocessing_env.cpython-39.pyc
 DDPG/__pycache__/env.cpython-39.pyc
 hoho/.ipynb_checkpoints/DDPGDemo-checkpoint.ipynb
+hoho/.ipynb_checkpoints/DQNDemov2-checkpoint.ipynb
+hoho/.ipynb_checkpoints/DynaimicProgramming_ValueIteratioin-checkpoint.ipynb
+hoho/.ipynb_checkpoints/TD3Demo-checkpoint.ipynb
+hoho/__pycache__/rl_utils.cpython-39.pyc
